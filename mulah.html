@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .table {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .table2 {
+            align-self: flex-end;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+
+        thead {
+            background-color: #FF00FF;
+            color: #fff;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="table">
+        <div class="table1">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>A</th>
+                        <th>B</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+
+        <div class="table2">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody id="table2Body"></tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        // Sample data array
+        const data = [
+            ["index#", "Value"],
+            ["A1", 41],
+            ["A2", 18],
+            ["A3", 21],
+            ["A4", 63],
+            ["A5", 2],
+            ["A6", 53],
+            ["A7", 5],
+            ["A8", 57],
+            ["A9", 60],
+            ["A10", 93],
+            ["A11", 28],
+            ["A12", 3],
+            ["A13", 90],
+            ["A14", 39],
+            ["A15", 80],
+            ["A16", 88],
+            ["A17", 49],
+            ["A18", 60],
+            ["A19", 26],
+            ["A20", 28]
+        ];
+
+        // Function to generate table rows dynamically
+        function generateTableRows(data) {
+            const tableBody = document.getElementById('tableBody');
+
+            data.forEach((row, index) => {
+                const tr = document.createElement('tr');
+
+                // Add row number
+                const tdNumber = document.createElement('td');
+                tdNumber.textContent = index + 1;
+                tr.appendChild(tdNumber);
+
+                row.forEach(cellData => {
+                    const td = document.createElement('td');
+                    td.textContent = cellData;
+                    tr.appendChild(td);
+                });
+
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // Function to generate values for the second table
+        function generateTable2Values(data) {
+            const table2Body = document.getElementById('table2Body');
+
+            for (let i = 1; i <= 3; i++) { // Adjust the loop to exclude rows A4 to A20
+                const tr = document.createElement('tr');
+
+                // Add category
+                const category = document.createElement('td');
+                category.textContent = data[i][0];
+                tr.appendChild(category);
+
+                // Add calculated value based on operations
+                const value = document.createElement('td');
+                if (i === 1) {
+                    // For "Alpha" row
+                    value.textContent = data[5][1] + data[20][1]; // A5 + A20
+                } else if (i === 2) {
+                    // For "Beta" row
+                    value.textContent = data[15][1] / data[7][1]; // A15 / A7
+                } else if (i === 3) {
+                    // For "Charlie" row
+                    value.textContent = data[13][1] * data[12][1]; // A13 * A12
+                }
+                tr.appendChild(value);
+
+                table2Body.appendChild(tr);
+            }
+        }
+
+        // Call the functions with the sample data
+        generateTableRows(data);
+        generateTable2Values(data);
+    </script>
+</body>
+</html>
